@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 
 import ListItem from './src/components/ListItem/ListItem'
 import PlaceInput from './src/components/PlaceInput/PlaceInput'
-import PlacesOutput from './src/components/PlacesOutput/PlacesOutput'
+import PlaceList from './src/components/PlaceList/PlaceList'
 
 export default class App extends React.Component {
   state = {
@@ -37,7 +37,7 @@ export default class App extends React.Component {
           placeNameChangedHandler={this.placeNameChangedHandler}
           placeSubmitHandler={this.placeSubmitHandler}
            />
-        <PlacesOutput places={this.state.places} />
+        <PlaceList places={this.state.places} />
       </View>
     );
   }
