@@ -4,7 +4,6 @@ import {Text, StyleSheet, FlatList } from 'react-native'
 import ListItem from '../ListItem/ListItem'
 
 const placeList = props => {
-  const len = 'Places length = ' + props.places.length
   return (
     <FlatList style={styles.listContainer}
       data={props.places}
