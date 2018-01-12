@@ -4,14 +4,13 @@ import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 import ListItem from './src/components/ListItem/ListItem'
 import PlaceInput from './src/components/PlaceInput/PlaceInput'
 import PlaceList from './src/components/PlaceList/PlaceList'
-import placeImage from './src/assets/beautiful-place.jpg'
 
 export default class App extends React.Component {
   state = {
     placeName: '',
     places: [
     ]
-  }
+  };
 
   placeNameChangedHandler = val => {
     this.setState({
@@ -28,7 +27,11 @@ export default class App extends React.Component {
       return {
         places: prevState.places.concat({
           key: Math.random(),
-          image: placeImage,
+          image: {
+            uri: "https://inception-app-prod.s3.amazonaws.com/YWE1OGJjMjAtNjkzNS00ZjQxLWE1ZmUtZTM0NDk0YjI1Yjgw/content/2016/10/79f7d0a8d3b1ec81943d0fc829a8aef8.jpg",
+            height: 30,
+            width: 30
+          },
           name: this.state.placeName })
       };
     });
