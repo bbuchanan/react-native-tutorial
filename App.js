@@ -18,34 +18,32 @@ export default class App extends React.Component {
     })
   }
 
-  placeSubmitHandler = () => {
+  placeAddedHandler = () => {
     if (this.state.placeName.trim() === "") {
       return;
-    }
+    };
 
     this.setState(prevState => {
       return {
-        places: prevState.places.concat(prevState.placeName)
-      }
-    })
-  }
+        places: prevState.places.concat({ key: Math.random(), value: this.state.placeName })
+      };
+    });
+  };
 
-  placeDeletedHandler = index => {
+  placeDeletedHandler = key => {
     this.setState(prevState => {
       return {
-        places: prevState.places.filter((place, i) => {
-          return i !== index
-        })
-      }
-    })
-  }
+        places: prevState.places.filter(p => p.key !== key)
+      };
+    });
+  };
 
   render() {
     return (
       <View style={styles.container}>
         <PlaceInput placeName={this.state.placeName}
           placeNameChangedHandler={this.placeNameChangedHandler}
-          placeSubmitHandler={this.placeSubmitHandler}
+          placeSubmitHandler={this.placeAddedHandler}
            />
         <PlaceList
           onItemDeleted={this.placeDeletedHandler}
