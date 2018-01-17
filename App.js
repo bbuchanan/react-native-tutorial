@@ -14,7 +14,7 @@ const store = configureStore();
 Navigation.registerComponent('awesome-places.AuthScreen', () => AuthScreen, store, Provider);
 Navigation.registerComponent('awesome-places.SharePlaceScreen', () => SharePlaceScreen, store, Provider);
 Navigation.registerComponent('awesome-places.FindPlaceScreen', () => FindPlaceScreen, store, Provider);
-Navigation.registerComponent('awesome-places.PlaceDetailScreen', () => PlaceDetailScreen);
+Navigation.registerComponent('awesome-places.PlaceDetailScreen', () => PlaceDetailScreen, store, Provider);
 
 // Start app
 
