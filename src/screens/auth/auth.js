@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Button, TextInput, StyleSheet, ImageBackground } from 'react-native';
+import { View, Text, Button, TextInput, StyleSheet, ImageBackground, Dimensions } from 'react-native';
 import startMainTabs from '../MainTabs/startMainTabs'
 import DefaultInput from '../../components/UI/DefaultInput/DefaultInput'
 import HeadingText from '../../components/UI/HeadingText/HeadingText';
@@ -14,24 +14,35 @@ class AuthScreen extends Component {
   }
 
   render() {
+    let headingText = null;
+
+    if (Dimensions.get("window").height > 500) {
+      headingText = (<MainText>
+        <HeadingText>Please Login</HeadingText>
+      </MainText>)
+    }
     return (
       <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
-      <View style={styles.container}>
-          <MainText>
-            <HeadingText>Please Login</HeadingText>
-          </MainText>
+        <View style={styles.container}>
+          {headingText}
           <ButtonWithBackground color="#29aaf4" onPress={() => alert('yo')}>Switch to Login</ButtonWithBackground>
           <View style={styles.inputContainer}>
             <DefaultInput placeholder="Your email address" style={styles.input} />
-            <DefaultInput placeholder="Your password" style={styles.input} />
-            <DefaultInput placeholder="Confirm password" style={styles.input} />
+            <View style={styles.passwordContainer}>
+              <View style={styles.passwordWrapper}>
+              <DefaultInput placeholder="Your password" style={styles.input} />
+              </View>
+              <View style={styles.passwordWrapper}>
+              <DefaultInput placeholder="Confirm password" style={styles.input} />
+              </View>
+            </View>
           </View>
           <ButtonWithBackground
             color="#29aaf4"
             onPress={this.loginHandler}>
             Submit
           </ButtonWithBackground>
-      </View>
+        </View>
       </ImageBackground>
     );
   }
@@ -53,6 +64,13 @@ const styles = StyleSheet.create({
   backgroundImage: {
     width: "100%",
     flex: 1
+  },
+  passwordContainer: {
+    flexDirection: Dimensions.get("window").height > 500 ? "column" : "row",
+    justifyContent: "space-between"
+  },
+  passwordWrapper: {
+    width: Dimensions.get("window").height > 500 ? "45%" : "100%"
   }
 });
 export default AuthScreen;
