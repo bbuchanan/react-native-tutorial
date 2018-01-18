@@ -1,4 +1,8 @@
 export {
   addPlace,
-  deletePlace
-} from './places'
+  deletePlace,
+} from './places';
+
+export {
+  tryAuth
+} from './auth';
