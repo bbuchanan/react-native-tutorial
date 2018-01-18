@@ -9,6 +9,27 @@ import ButtonWithBackground from '../../components/UI/ButtonWithBackground/Butto
 import backgroundImage from '../../assets/background.jpg';
 
 class AuthScreen extends Component {
+  state = {
+    respStyles: {
+      pwContainerDirection: "column",
+      pwContainerJustifyContent: "flex-start",
+      pwWrapperWidth: "100%"
+    }
+  };
+
+  constructor(props) {
+    super(props);
+    Dimensions.addEventListener("change", (dims) => {
+      this.setState({
+        respStyles: {
+          pwContainerDirection: Dimensions.get("window").height > 500 ? "column" : "row",
+          pwContainerJustifyContent: Dimensions.get("window").height > 500 ? "flex-start" : "space-between",
+          pwWrapperWidth: Dimensions.get("window").height > 500 ? "100%" : "45%"
+        }
+      });
+    });
+  }
+
   loginHandler = () => {
     startMainTabs();
   }
@@ -28,12 +49,17 @@ class AuthScreen extends Component {
           <ButtonWithBackground color="#29aaf4" onPress={() => alert('yo')}>Switch to Login</ButtonWithBackground>
           <View style={styles.inputContainer}>
             <DefaultInput placeholder="Your email address" style={styles.input} />
-            <View style={styles.passwordContainer}>
-              <View style={styles.passwordWrapper}>
-              <DefaultInput placeholder="Your password" style={styles.input} />
+            <View style={{
+              flexDirection: this.state.respStyles.pwContainerDirection,
+              justifyContent: this.state.respStyles.pwContainerJustifyContent
+            }}>
+              <View
+                style={{ width: this.state.respStyles.pwWrapperWidth }}>
+                <DefaultInput placeholder="Your password" style={styles.input} />
               </View>
-              <View style={styles.passwordWrapper}>
-              <DefaultInput placeholder="Confirm password" style={styles.input} />
+              <View
+                style={{ width: this.state.respStyles.pwWrapperWidth }}>
+                <DefaultInput placeholder="Confirm password" style={styles.input} />
               </View>
             </View>
           </View>
@@ -70,7 +96,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between"
   },
   passwordWrapper: {
-    width: Dimensions.get("window").height > 500 ? "45%" : "100%"
+    width: Dimensions.get("window").height > 500 ? "100%" : "450%"
   }
 });
 export default AuthScreen;
