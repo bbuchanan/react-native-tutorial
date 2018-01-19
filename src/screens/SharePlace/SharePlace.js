@@ -19,13 +19,12 @@ class SharePlaceScreen extends Component {
   };
 
   state = {
-    //placeName: '',
     controls: {
       placeName: {
         value: '',
         valid: false,
         validationRules: {
-          minLength: 1
+          notEmpty: true
         },
         touched: false
       },
@@ -79,18 +78,15 @@ class SharePlaceScreen extends Component {
           <PickImage />
           <PickLocation />
           <PlaceInput
-            placeName={this.state.controls.placeName.value}
+            placeData={this.state.controls.placeName}
             onChangeText={(val) => this.placeNameChangedHandler(val, 'placeName')}>
           </PlaceInput>
-          {/* <View style={styles.button}>
-            <Button title="Share the Place!" onPress={this.placeAddedHandler}></Button>
-          </View> */}
-          <ButtonWithBackground
-            color="#29aaf4"
-            onPress={this.placeAddedHandler}
-            disabled={!this.state.controls.placeName.valid}>
-            Share This Place!
-          </ButtonWithBackground>
+          <View style={styles.button}>
+            <Button title="Share the Place!"
+            disabled={!this.state.controls.placeName.valid}
+            onPress={this.placeAddedHandler}>
+            </Button>
+          </View>
         </View>
       </ScrollView>
     )
