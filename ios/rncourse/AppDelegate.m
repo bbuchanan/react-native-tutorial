@@ -10,6 +10,7 @@
 // with npm ver 2. You'll need to "npm install" with npm 3 (see https://github.com/wix/react-native-navigation/issues/1)
 
 #import <React/RCTRootView.h>
+@import GoogleMaps;
 
 @implementation AppDelegate
 
@@ -23,7 +24,7 @@
   jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 #endif
   
-  
+  [GMSServices provideAPIKey:@"AIzaSyDACtnWybIRH_uTCGJF9k48fOFk0orc8WY"];
   // **********************************************
   // *** DON'T MISS: THIS IS HOW WE BOOTSTRAP *****
   // **********************************************
