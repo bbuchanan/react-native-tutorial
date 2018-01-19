@@ -28,7 +28,11 @@ class SharePlaceScreen extends Component {
         },
         touched: false
       },
-    }
+      location: {
+        value: null,
+        valid: false
+      }
+    },
   };
 
   constructor(props) {
@@ -49,8 +53,8 @@ class SharePlaceScreen extends Component {
   placeNameChangedHandler = (val, key) => {
     this.setState(prevState => {
       return {
-        ...prevState.controls,
         controls: {
+          ...prevState.controls,
           [key]: {
             ...prevState.controls[key],
             value: val,
@@ -63,8 +67,22 @@ class SharePlaceScreen extends Component {
   }
   
   placeAddedHandler = () => {
-    this.props.onAddPlace(this.state.controls.placeName.value);
+    this.props.onAddPlace(this.state.controls.placeName.value, this.state.controls.location.value);
   };
+
+  locationPickedHandler = location => {
+    this.setState(prevState => {
+      return {
+        controls: {
+          ...prevState.controls,
+          location: {
+            value: location,
+            valid: true
+          }
+        },
+      };
+    });
+  }
 
   render() {
     return (
@@ -76,14 +94,14 @@ class SharePlaceScreen extends Component {
             </HeadingText>
           </MainText>
           <PickImage />
-          <PickLocation />
+          <PickLocation onLocationPick={this.locationPickedHandler} />
           <PlaceInput
             placeData={this.state.controls.placeName}
             onChangeText={(val) => this.placeNameChangedHandler(val, 'placeName')}>
           </PlaceInput>
           <View style={styles.button}>
             <Button title="Share the Place!"
-            disabled={!this.state.controls.placeName.valid}
+            disabled={!this.state.controls.placeName.valid || !this.state.controls.location.valid}
             onPress={this.placeAddedHandler}>
             </Button>
           </View>
@@ -116,7 +134,7 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAddPlace: (placeName) => dispatch(addPlace(placeName))
+    onAddPlace: (placeName, location) => dispatch(addPlace(placeName, location))
   }
 }
 export default connect(null, mapDispatchToProps)(SharePlaceScreen);
