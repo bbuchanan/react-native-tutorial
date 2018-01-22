@@ -35,9 +35,16 @@ class PlaceDetailScreen extends Component {
   render() {
     return (
       <View style={[styles.container, this.state.viewMode === 'portrait' ? styles.portraitContainer : styles.landScapeContainer]}>
-        <View>
+        <View style={styles.placeDetailContainer}>
           <View style={styles.subContainer}>
             <Image source={this.props.selectedPlace.image} style={styles.placeImage} />
+          </View>
+          <View style={styles.subContainer}>
+            <MapView
+              style={styles.map}
+              initialRegion={this.props.selectedPlace.location}>
+              <MapView.Marker coordinate={this.props.selectedPlace.location}/>
+            </MapView>
           </View>
           <View style={styles.subContainer}>
             <View>
@@ -52,11 +59,6 @@ class PlaceDetailScreen extends Component {
             </View>
           </View>
         </View>
-        <MapView
-        style={styles.map}
-        initialRegion={this.props.selectedPlace.location}
-      >
-      </MapView>
       </View>
     )
   }
@@ -73,9 +75,12 @@ const styles = StyleSheet.create({
   landScapeContainer: {
     flexDirection: "row"
   },
+  placeDetailContainer: {
+    flex: 2
+  },
   placeImage: {
     width: "100%",
-    height: 200
+    height: "100%"
   },
   placeName: {
     fontWeight: "bold",
@@ -89,11 +94,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   map: {
-    width: "100%",
-    height: 250,
-    justifyContent: "space-between",
-    flex: 1,
-    flexDirection: "row"
+    ...StyleSheet.absoluteFillObject
   }
 });
 
