@@ -26,7 +26,9 @@ class PickLocation extends Component {
         focusedLocation: {
           ...prevState.focusedLocation,
           latitude: coords.latitude,
-          longitude: coords.longitude
+          longitude: coords.longitude,
+          longitudeDelta: this.state.focusedLocation.longitudeDelta,
+          latitudeDelta: this.state.focusedLocation.latitudeDelta
         },
         locationChosen: true
       }
@@ -34,7 +36,9 @@ class PickLocation extends Component {
 
     this.props.onLocationPick({
       latitude: coords.latitude,
-      longitude: coords.longitude
+      longitude: coords.longitude,
+      longitudeDelta: this.state.focusedLocation.longitudeDelta,
+      latitudeDelta: this.state.focusedLocation.latitudeDelta
     });
   };
 

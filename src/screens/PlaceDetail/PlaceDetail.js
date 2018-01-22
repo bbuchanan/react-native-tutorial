@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Image, Text, Button, StyleSheet, TouchableOpacity, Platform, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
+import MapView from 'react-native-maps';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -34,21 +35,28 @@ class PlaceDetailScreen extends Component {
   render() {
     return (
       <View style={[styles.container, this.state.viewMode === 'portrait' ? styles.portraitContainer : styles.landScapeContainer]}>
-        <View style={styles.subContainer}>
-          <Image source={this.props.selectedPlace.image} style={styles.placeImage} />
-        </View>
-        <View style={styles.subContainer}>
-          <View>
-            <Text style={styles.placeName}>{this.props.selectedPlace.name}</Text>
+        <View>
+          <View style={styles.subContainer}>
+            <Image source={this.props.selectedPlace.image} style={styles.placeImage} />
           </View>
-          <View>
-            <TouchableOpacity onPress={this.placeDeletedHandler}>
-              <View style={styles.deleteButton}>
-                <Icon size={30} name={Platform.OS === 'android' ? 'md-trash' : 'ios-trash'} color="red" />
-              </View>
-            </TouchableOpacity>
+          <View style={styles.subContainer}>
+            <View>
+              <Text style={styles.placeName}>{this.props.selectedPlace.name}</Text>
+            </View>
+            <View>
+              <TouchableOpacity onPress={this.placeDeletedHandler}>
+                <View style={styles.deleteButton}>
+                  <Icon size={30} name={Platform.OS === 'android' ? 'md-trash' : 'ios-trash'} color="red" />
+                </View>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
+        <MapView
+        style={styles.map}
+        initialRegion={this.props.selectedPlace.location}
+      >
+      </MapView>
       </View>
     )
   }
@@ -79,6 +87,13 @@ const styles = StyleSheet.create({
   },
   subContainer: {
     flex: 1
+  },
+  map: {
+    width: "100%",
+    height: 250,
+    justifyContent: "space-between",
+    flex: 1,
+    flexDirection: "row"
   }
 });
 
