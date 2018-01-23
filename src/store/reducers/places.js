@@ -14,7 +14,7 @@ const reducer = (state = initialState, action) => {
           name: action.placeName,
           location: action.location,
           image: {
-            uri: "https://inception-app-prod.s3.amazonaws.com/YWE1OGJjMjAtNjkzNS00ZjQxLWE1ZmUtZTM0NDk0YjI1Yjgw/content/2016/10/79f7d0a8d3b1ec81943d0fc829a8aef8.jpg",
+            uri: action.image.uri,
             height: 30,
             width: 30
           }
