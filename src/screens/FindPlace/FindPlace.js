@@ -9,8 +9,8 @@ import {
 import { connect } from "react-redux";
 
 import PlaceList from "../../components/PlaceList/PlaceList";
-import { getPlaces, deletePlace } from "../../store/actions/index";
-//import { deletePlace } from "../../store/actions/places";
+import { getPlaces } from "../../store/actions/index";
+import { removePlace } from "../../store/actions/places";
 
 class FindPlaceScreen extends Component {
   static navigatorStyle = {
@@ -146,7 +146,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onLoadPlaces: () => dispatch(getPlaces()),
-    onDeletePlace: key => dispatch(deletePlace(key))
+    onDeletePlace: key => dispatch(removePlace(key))
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(FindPlaceScreen);
