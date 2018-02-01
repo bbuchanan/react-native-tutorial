@@ -6,15 +6,33 @@ export const addPlace = (placeName, location, image) => {
       name: placeName,
       location
     };
-    fetch("https://my-project-1485530647486.firebaseio.com/places.json", {
-      method: "POST",
-      body: JSON.stringify(placeData)
-    })
-      .catch(err => console.log(err))
+    fetch(
+      "https://us-central1-my-project-1485530647486.cloudfunctions.net/storeImage",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          image: image.base64
+        })
+      }
+    )
       .then(res => res.json())
-      .then(parsedRes => {
-        console.log(parsedRes);
+      .then(parsedResp => {
+        console.log(parsedResp);
+      })
+      .catch(err => {
+        console.log("got here");
+        console.log(err);
       });
+
+    // fetch("https://my-project-1485530647486.firebaseio.com/places.json", {
+    //   method: "POST",
+    //   body: JSON.stringify(placeData)
+    // })
+    //   .catch(err => console.log(err))
+    //   .then(res => res.json())
+    //   .then(parsedRes => {
+    //     console.log(parsedRes);
+    //   });
   };
 };
 

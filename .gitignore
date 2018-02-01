@@ -22,3 +22,5 @@ yarn-error.log*
 /android/app/build
 /android/.gradle
 /android/.idea
+
+/functions/node_modules
