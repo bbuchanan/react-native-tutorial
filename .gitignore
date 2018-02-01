@@ -24,3 +24,4 @@ yarn-error.log*
 /android/.idea
 
 /functions/node_modules
+/functions/awesome-places.json
