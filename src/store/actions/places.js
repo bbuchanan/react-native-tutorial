@@ -71,10 +71,6 @@ export const removePlace = key => {
 export const getPlaces = () => {
   return dispatch => {
     return fetch("https://my-project-1485530647486.firebaseio.com/places.json")
-      .catch(err => {
-        alert("Something went wrong");
-        console.location(err);
-      })
       .then(res => res.json())
       .then(parsedRes => {
         const places = [];
@@ -88,6 +84,10 @@ export const getPlaces = () => {
           });
         }
         dispatch(setPlaces(places));
+      })
+      .catch(err => {
+        alert("Something went wrong");
+        console.log(err);
       });
   };
 };
