@@ -34,6 +34,16 @@ export const addPlace = (placeName, location, image) => {
       .catch(err => {
         console.log(err);
       });
+
+    // fetch("https://my-project-1485530647486.firebaseio.com/places.json", {
+    //   method: "POST",
+    //   body: JSON.stringify(placeData)
+    // })
+    //   .catch(err => console.log(err))
+    //   .then(res => res.json())
+    //   .then(parsedRes => {
+    //     console.log(parsedRes);
+    //   });
   };
 };
 
