@@ -1,3 +1,5 @@
+import { AsyncStorage } from "react-native";
+
 import { TRY_AUTH, AUTH_SET_TOKEN } from "./actionTypes";
 import { uiStartLoading, uiStopLoading } from "./index";
 import startMainTabs from "../../screens/MainTabs/startMainTabs";
@@ -33,7 +35,7 @@ export const tryAuth = (authData, authMode) => {
         if (!parsedRes.idToken) {
           alert("Authentication failed, try again.");
         } else {
-          dispatch(authSetToken(parsedRes.idToken));
+          dispatch(authStoreToken(parsedRes.idToken));
           startMainTabs();
         }
       });
@@ -42,6 +44,13 @@ export const tryAuth = (authData, authMode) => {
 
 export const authSignup = authData => {
   return dispatch => {};
+};
+
+export const authStoreToken = token => {
+  return dispatch => {
+    dispatch(authSetToken(token));
+    AsyncStorage.setItem("ap:auth:token", token);
+  };
 };
 
 export const authSetToken = token => {
@@ -56,12 +65,31 @@ export const authGetToken = () => {
     const promise = new Promise((resolve, reject) => {
       const token = getState().auth.token;
       if (!token) {
-        reject();
+        AsyncStorage.getItem("ap:auth:token")
+          .then(tokenFromStorage => {
+            if (!tokenFromStorage) {
+              reject();
+              return;
+            }
+            dispatch(authSetToken(tokenFromStorage));
+            resolve(tokenFromStorage);
+          })
+          .catch(err => reject());
       } else {
         resolve(token);
       }
     });
 
     return promise;
+  };
+};
+
+export const authAutoSignIn = () => {
+  return dispatch => {
+    dispatch(authGetToken())
+      .catch(err => console.log(err))
+      .then(token => {
+        startMainTabs();
+      });
   };
 };
