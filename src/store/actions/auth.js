@@ -94,7 +94,9 @@ export const authGetToken = () => {
         resolve(token);
       }
     });
-
+    promise.catch(err => {
+      dispatch(authClearStorage());
+    });
     return promise;
   };
 };
@@ -102,11 +104,18 @@ export const authGetToken = () => {
 export const authAutoSignIn = () => {
   return dispatch => {
     dispatch(authGetToken())
-      .catch(err => console.log(err))
       .then(token => {
         if (token) {
           startMainTabs();
         }
-      });
+      })
+      .catch(err => console.log(err));
+  };
+};
+
+export const authClearStorage = () => {
+  return dispatch => {
+    AsyncStorage.removeItem("ap:auth:token");
+    AsyncStorage.removeItem("ap:auth:expiryDate");
   };
 };
