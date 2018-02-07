@@ -49,7 +49,8 @@ export const addPlace = (placeName, location, image) => {
         const placeData = {
           name: placeName,
           location: location,
-          image: parsedRes.imageUrl
+          image: parsedRes.imageUrl,
+          imagePath: parsedRes.imagePath
         };
         return fetch(
           `https://my-project-1485530647486.firebaseio.com/places.json?auth=${authToken}`,
