@@ -38,7 +38,13 @@ export const addPlace = (placeName, location, image) => {
         console.log(err);
         dispatch(uiStopLoading());
       })
-      .then(res => res.json())
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw new Error();
+        }
+      })
       .then(parsedRes => {
         const placeData = {
           name: placeName,
@@ -53,7 +59,13 @@ export const addPlace = (placeName, location, image) => {
           }
         );
       })
-      .then(res => res.json())
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw new Error();
+        }
+      })
       .then(parsedRes => {
         console.log(parsedRes);
         dispatch(uiStopLoading());
@@ -87,7 +99,13 @@ export const deletePlace = key => {
             method: "DELETE"
           }
         )
-          .then(resp => resp.json())
+          .then(resp => {
+            if (res.ok) {
+              return res.json();
+            } else {
+              throw new Error();
+            }
+          })
           .then(parsedResp => {
             console.log(parsedResp);
           })
@@ -110,7 +128,13 @@ export const getPlaces = () => {
         return fetch(
           `https://my-project-1485530647486.firebaseio.com/places.json?auth=${token}`
         )
-          .then(res => res.json())
+          .then(res => {
+            if (res.ok) {
+              return res.json();
+            } else {
+              throw new Error();
+            }
+          })
           .then(parsedRes => {
             const places = [];
             for (let key in parsedRes) {
