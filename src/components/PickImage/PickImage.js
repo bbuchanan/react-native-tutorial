@@ -1,28 +1,31 @@
-import React, { Component } from 'react';
-import { View, Image, Button, StyleSheet } from 'react-native';
-import ImagePicker from 'react-native-image-picker';
+import React, { Component } from "react";
+import { View, Image, Button, StyleSheet } from "react-native";
+import ImagePicker from "react-native-image-picker";
 
-import imagePlaceHolder from '../../assets/background.jpg';
+import imagePlaceHolder from "../../assets/background.jpg";
 
 class PickImage extends Component {
   state = {
     pickedImage: null
-  }
+  };
 
   pickImageHandler = () => {
-    ImagePicker.showImagePicker({title: "Pick an Image, Jack"}, res => {
-      if (res.didCancel) {
-        console.log("User cancelled");
-      } else if (res.error) {
-        console.log("error", res.error);
-      } else {
-        this.setState({
-          pickedImage: { uri: res.uri }
-        });
-        this.props.onImagePicked({ uri: res.uri, base64: res.data });
+    ImagePicker.showImagePicker(
+      { title: "Pick an Image, Jack", maxWidth: 800, maxHeight: 600 },
+      res => {
+        if (res.didCancel) {
+          console.log("User cancelled");
+        } else if (res.error) {
+          console.log("error", res.error);
+        } else {
+          this.setState({
+            pickedImage: { uri: res.uri }
+          });
+          this.props.onImagePicked({ uri: res.uri, base64: res.data });
+        }
       }
-    });
-  }
+    );
+  };
 
   render() {
     return (
@@ -31,12 +34,12 @@ class PickImage extends Component {
           <Image source={this.state.pickedImage} style={styles.previewImage} />
         </View>
         <View style={styles.button}>
-          <Button title="Pick Image" onPress={this.pickImageHandler}></Button>
+          <Button title="Pick Image" onPress={this.pickImageHandler} />
         </View>
       </View>
-    )
+    );
   }
-};
+}
 
 const styles = StyleSheet.create({
   container: {
